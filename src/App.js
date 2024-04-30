@@ -92,7 +92,7 @@ const MyCounter = () => {
 
   const fetchMyCounter = useCallback(async () => {
     try {
-      const response = await axios.get('https://hook-server-khaki.vercel.app//api/counter');
+      const response = await axios.get('https://hook-server-khaki.vercel.app/api/counter');
       dispatch({ type: 'SetMyCount', My_Count: response.data.count1 });
     } catch (err) {
       console.error('Error fetching MyCounter:', err);
@@ -105,7 +105,7 @@ const MyCounter = () => {
 
   const incrementMyCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app//api/counter/my-increment');
+      await axios.post('https://hook-server-khaki.vercel.app/api/counter/my-increment');
       dispatch({ type: 'IncrementMyCount' });
     } catch (err) {
       console.error('Error incrementing MyCounter:', err);
@@ -114,7 +114,7 @@ const MyCounter = () => {
 
   const decrementMyCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app//api/counter/my-decrement');
+      await axios.post('https://hook-server-khaki.vercel.app/api/counter/my-decrement');
       dispatch({ type: 'DecrementMyCount' });
     } catch (err) {
       console.error('Error decrementing MyCounter:', err);

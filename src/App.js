@@ -56,7 +56,7 @@ const Counter = () => {
     fetchCounter();
   }, [fetchCounter]);
 
-  const incrementCounter = useCallback(async () => {
+  const incrementCounter = useCallback(async  (variable) => {
     try {
       await axios.post(`https://hook-server-khaki.vercel.app/api/counter/increment/${variable}`);
       dispatch({ type: 'IncrementCount' });
@@ -65,7 +65,7 @@ const Counter = () => {
     }
   }, [dispatch]);
 
-  const decrementCounter = useCallback(async () => {
+  const decrementCounter = useCallback(async  (variable) => {
     try {
       await axios.post(`https://hook-server-khaki.vercel.app/api/counter/decrement/${variable}`);
       dispatch({ type: 'DecrementCount' });
@@ -78,8 +78,8 @@ const Counter = () => {
     <div>
       <h2>Counter</h2>
       <p>Count: {state.count}</p>
-      <button onClick={incrementCounter}>Increment</button>
-      <button onClick={decrementCounter}>Decrement</button>
+      <button onClick={()=>incrementCounter('count')}>Increment</button>
+      <button onClick={()=>decrementCounter('count')}>Decrement</button>
       <button onClick={() => navigate('/')}>Go Back to Home</button>
     </div>
   );
@@ -103,7 +103,7 @@ const MyCounter = () => {
     fetchMyCounter();
   }, [fetchMyCounter]);
 
-  const incrementMyCounter = useCallback(async () => {
+  const incrementMyCounter = useCallback(async  (variable) => {
     try {
       await axios.post(`https://hook-server-khaki.vercel.app/api/counter/increment/${variable}`);
       dispatch({ type: 'IncrementMyCount' });
@@ -112,7 +112,7 @@ const MyCounter = () => {
     }
   }, [dispatch]);
 
-  const decrementMyCounter = useCallback(async () => {
+  const decrementMyCounter = useCallback(async  (variable) => {
     try {
       await axios.post(`https://hook-server-khaki.vercel.app/api/counter/decrement/${variable}`);
       dispatch({ type: 'DecrementMyCount' });
@@ -125,8 +125,8 @@ const MyCounter = () => {
     <div>
       <h2>MyCounter</h2>
       <p>My_Count: {state.My_Count}</p>
-      <button onClick={incrementMyCounter}>Increment</button>
-      <button onClick={decrementMyCounter}>Decrement</button>
+      <button onClick={()=>incrementMyCounter('count1')}>Increment</button>
+      <button onClick={()=>decrementMyCounter('count1')}>Decrement</button>
       <button onClick={() => navigate('/')}>Go Back to Home</button>
     </div>
   );

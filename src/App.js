@@ -58,7 +58,7 @@ const Counter = () => {
 
   const incrementCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app/api/counter/increment');
+      await axios.post(`https://hook-server-khaki.vercel.app/api/counter/increment/${variable}`);
       dispatch({ type: 'IncrementCount' });
     } catch (err) {
       console.error('Error incrementing counter:', err);
@@ -67,7 +67,7 @@ const Counter = () => {
 
   const decrementCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app/api/counter/decrement');
+      await axios.post(`https://hook-server-khaki.vercel.app/api/counter/decrement/${variable}`);
       dispatch({ type: 'DecrementCount' });
     } catch (err) {
       console.error('Error decrementing counter:', err);
@@ -105,7 +105,7 @@ const MyCounter = () => {
 
   const incrementMyCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app/api/counter/my-increment');
+      await axios.post(`https://hook-server-khaki.vercel.app/api/counter/increment/${variable}`);
       dispatch({ type: 'IncrementMyCount' });
     } catch (err) {
       console.error('Error incrementing MyCounter:', err);
@@ -114,7 +114,7 @@ const MyCounter = () => {
 
   const decrementMyCounter = useCallback(async () => {
     try {
-      await axios.post('https://hook-server-khaki.vercel.app/api/counter/my-decrement');
+      await axios.post(`https://hook-server-khaki.vercel.app/api/counter/decrement/${variable}`);
       dispatch({ type: 'DecrementMyCount' });
     } catch (err) {
       console.error('Error decrementing MyCounter:', err);
@@ -135,7 +135,18 @@ const MyCounter = () => {
 
 const App = () => {
   const [state, dispatch] = useReducer(combinedCounterReducer, { count: 0, My_Count: 0 });
-
+  useEffect(() => {
+    const fetchInitialValues = async () => {
+      try {
+        const response = await axios.get('https://hook-server-khaki.vercel.app/api/counter');
+        dispatch({ type: 'SetCount', count: response.data.count });
+      dispatch({ type: 'SetMyCount', My_Count: response.data.count1 });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchInitialValues(); 
+  },[]);
   return (
     <CounterContext.Provider value={{ state, dispatch }}>
       <Router>
